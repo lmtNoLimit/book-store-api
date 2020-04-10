@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const logger = require("morgan");
 
+const indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
 const bookRouter = require("./routes/book");
 const usersRouter = require("./routes/profile");
@@ -21,11 +22,13 @@ mongoose
   })
   .then(() => console.log("DB connected"));
 
+app.set("view engine", "pug");
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/api", indexRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/books", auth, bookRouter);
 app.use("/api/profile", auth, usersRouter);

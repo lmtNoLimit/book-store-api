@@ -1,0 +1,65 @@
+doctype html
+head
+    title Book Store API
+    link(rel='stylesheet', href='/stylesheets/style.css')
+body
+    h1 Book Store API
+    h3 You can use this to learn Express or practice with Frontend Framework/Libraries
+    h3 This project use for education only
+    ul
+      li
+        | Here is my api that i have deployed to heroku. You can use with your Front-end project OR you can clone this project and use url as your local server
+    p
+      | {{url}}: 
+      a(href='https://lmt-book-store-api.herokuapp.com/api') https://lmt-book-store-api.herokuapp.com/api
+    table(border="1")
+      thead
+        tr
+          th Method
+          th Route
+          th Description
+      tbody
+        tr
+          td POST
+          td {{url}}/auth/login
+          td Login
+        tr
+          td POST
+          td {{url}}/auth/register
+          td Register
+        tr
+          td POST
+          td {{url}}/auth/logout
+          td Logout
+        tr
+          td GET
+          td {{url}}/profile
+          td Read Profile
+        tr
+          td PUT
+          td {{url}}/profile
+          td Edit Profile
+        tr
+          td DELETE
+          td {{url}}/profile
+          td Remove Account
+        tr
+          td GET
+          td {{url}}/books
+          td Get all books
+        tr
+          td POST
+          td {{url}}/books
+          td Create a books
+        tr
+          td GET
+          td {{url}}/books/:id
+          td Get a book
+        tr
+          td PUT
+          td {{url}}/books/:id
+          td Edit a book
+        tr
+          td DELETE
+          td {{url}}/books/:id
+          td Remove a book
