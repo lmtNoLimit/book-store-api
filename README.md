@@ -2,6 +2,10 @@
 
 ### You can use this to learn Express or practice with Frontend Framework/Libraries
 
+- Here is my api that i have deployed to heroku. You can use with your Front-end project OR you can clone this project and use url as your local server
+
+{{url}}: https://lmt-book-store-api.herokuapp.com/api
+
 | Method | Route                 | Description    |
 | ------ | --------------------- | -------------- |
 | POST   | {{url}}/auth/login    | Login          |
