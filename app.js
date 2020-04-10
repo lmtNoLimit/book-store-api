@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require("path");
 const logger = require("morgan");
@@ -9,6 +10,7 @@ const usersRouter = require("./routes/profile");
 const { auth } = require("./middlewares/auth");
 
 const app = express();
+app.use(cors());
 
 mongoose
   .connect(process.env.MONGO_URI, {
