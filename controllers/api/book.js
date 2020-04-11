@@ -1,4 +1,5 @@
 const Book = require("../../models/book");
+const { uploads, destroy } = require("../../cloudinaryConfig");
 
 module.exports.getMany = async (req, res) => {
   try {
@@ -10,8 +11,15 @@ module.exports.getMany = async (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
-  const book = new Book(req.body);
+  let book = new Book({
+    ...req.body,
+    image: req.files[0].path,
+  });
+
   try {
+    const result = await uploads(book.image);
+    book.image = result.url;
+    book.imageId = result.id;
     await book.save();
     res.status(201).json(book);
   } catch (error) {
@@ -41,7 +49,9 @@ module.exports.getOne = async (req, res) => {
 
 module.exports.deleteOne = async (req, res) => {
   try {
-    const book = await Book.findByIdAndDelete(req.params.id);
+    const book = await Book.findById(req.params.id);
+    await destroy(book.imageId);
+    await book.delete();
     res.status(200).json(book);
   } catch (error) {
     res.status(400).json({
