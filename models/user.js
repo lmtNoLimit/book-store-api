@@ -32,7 +32,10 @@ userSchema.methods = {
   },
   async generateToken() {
     const user = this;
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign(
+      { _id: user._id, username: user.username, name: user.name },
+      process.env.JWT_SECRET
+    );
     user.token = token;
     await user.save();
     return token;
