@@ -2,32 +2,43 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    trim: true,
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    name: {
+      type: String,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
   },
-  name: {
-    type: String,
-    trim: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  token: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 userSchema.methods = {
   toJSON() {
     const user = this;
     const userObject = user.toObject();
     delete userObject.password;
-    delete userObject.token;
+    delete userObject.tokens;
     return userObject;
   },
   async generateToken() {
@@ -36,7 +47,7 @@ userSchema.methods = {
       { _id: user._id, username: user.username, name: user.name },
       process.env.JWT_SECRET
     );
-    user.token = token;
+    user.tokens.push({ token });
     await user.save();
     return token;
   },
@@ -67,6 +78,6 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema, "users");
 
 module.exports = User;

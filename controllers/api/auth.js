@@ -25,9 +25,21 @@ module.exports.login = async (req, res) => {
 
 module.exports.logout = async (req, res) => {
   try {
-    req.user.token = null;
+    req.user.tokens = req.user.tokens.filter(
+      (token) => token.token !== req.token
+    );
     await req.user.save();
     res.status(200).json({ success: "Logged out!" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+module.exports.logoutAll = async (req, res) => {
+  try {
+    req.user.tokens = [];
+    await req.user.save();
+    res.status(200).json({ success: "Logged out all devices!" });
   } catch (error) {
     res.status(500).json(error);
   }
