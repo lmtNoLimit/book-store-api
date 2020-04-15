@@ -1,7 +1,11 @@
 const User = require("../../models/user");
 
-module.exports.show = (req, res) => {
-  res.status(200).json(req.user);
+module.exports.getOne = (req, res) => {
+  try {
+    res.status(200).json(req.user);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
 
 module.exports.update = async (req, res) => {

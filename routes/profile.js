@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { show, update, deleteOne } = require("../controllers/api/profile");
+const { getOne, update, deleteOne } = require("../controllers/api/profile");
 
-router.get("/", show);
+router.get("/", getOne);
 router.put("/", update);
 router.delete("/", deleteOne);
 
