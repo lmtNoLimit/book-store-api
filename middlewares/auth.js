@@ -8,7 +8,10 @@ module.exports.auth = async (req, res, next) => {
     // get the decoded data from token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     // find the user from the data
-    const user = await User.findOne({ _id: decoded._id, token: token });
+    const user = await User.findOne({
+      _id: decoded._id,
+      "tokens.token": token,
+    });
     if (!user) {
       throw new Error();
     }

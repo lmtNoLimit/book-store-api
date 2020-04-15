@@ -7,6 +7,7 @@ const logger = require("morgan");
 const indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
 const bookRouter = require("./routes/book");
+const cartRouter = require("./routes/cart");
 const usersRouter = require("./routes/profile");
 const { auth } = require("./middlewares/auth");
 
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/books", auth, bookRouter);
+app.use("/api/cart", auth, cartRouter);
 app.use("/api/profile", auth, usersRouter);
 
 module.exports = app;

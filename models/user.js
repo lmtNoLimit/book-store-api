@@ -27,6 +27,18 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    cart: [
+      {
+        bookId: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+        },
+        amount: {
+          type: Number,
+          min: 1,
+        },
+      },
+    ],
   },
   {
     timestamps: true,
