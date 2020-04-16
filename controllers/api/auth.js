@@ -2,6 +2,10 @@ const User = require("../../models/user");
 
 module.exports.register = async (req, res) => {
   const user = new User(req.body);
+  const isExist = await User.find({ username: req.body.username });
+  if (isExist) {
+    return res.status(400).json({ message: "User is already exist" });
+  }
   try {
     await user.save();
     res.status(201).json(user);
